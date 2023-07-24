@@ -31,7 +31,7 @@
 
 <!-- PROJECT DESCRIPTION -->
 
-## 📖 Morse Decoder <a name="about-project"></a>
+## 📖 OOP School Library <a name="about-project"></a>
 
 A School Library project.
 
