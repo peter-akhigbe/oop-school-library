@@ -1,10 +1,12 @@
+require './namable'
 require 'securerandom'
 
-class Person
+class Person < Namable
   attr_accessor :name, :age
   attr_reader :id
 
   def initialize(name: 'Unknown', age: nil, parent_permission: true)
+    super()
     @id = SecureRandom.uuid
     @name = name
     @age = age || 0
@@ -15,9 +17,37 @@ class Person
     of_age? || @parent_permission
   end
 
+   def correct_name
+    @name
+  end
+
   private
 
   def of_age?
     @age >= 18
+  end
+end
+
+class Decorator < Nameable
+  def initialize(nameable)
+    super()
+    @nameable = nameable
+  end
+
+  def correct_name
+    @nameable.correct_name
+  end
+end
+
+class CapitalizeDecorator < Decorator
+  def correct_name
+    @nameable.correct_name.capitalize
+  end
+end
+
+class TrimmerDecorator < Decorator
+  def correct_name
+    name = @nameable.correct_name
+    name.length > 10 ? name[0..9] : name
   end
 end
