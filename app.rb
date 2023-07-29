@@ -22,9 +22,8 @@ class App
   end
 
   def list_all_people()
-    puts 'All People:'
     @person.each do |person|
-      puts " #{person.class}, Name: #{person.name}, age: #{person.age}"
+      puts "[#{person.class}] Name: #{person.name}, age: #{person.age}"
 
       if person.instance_of?(Teacher)
         puts "Specialization: [#{person.specialization}]"
@@ -78,9 +77,9 @@ class App
 
     book_index = gets.chomp.to_i
 
-    puts 'select person by number'
+    puts 'select person from the following list by numbers (not id)'
     @person.each_with_index do |person, index|
-      puts "#{index} - #{person.class}, Name: #{person.name}"
+      puts "#{index} - [#{person.class}], Name: #{person.name}, ID #{person.id}, Age: #{person.age}"
     end
 
     person_index = gets.chomp.to_i
@@ -95,7 +94,7 @@ class App
   def list_rentals_for_person
     puts 'all id'
     @rentals.each do |rental|
-      puts " #{rental.person.id}, Name: #{rental.person.name}"
+      puts "ID of person: #{rental.person.id}"
     end
     puts 'select id'
     id = gets.chomp.to_i
