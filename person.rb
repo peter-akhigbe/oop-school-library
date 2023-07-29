@@ -17,7 +17,7 @@ class Person < Namable
     of_age? || @parent_permission
   end
 
-   def correct_name
+  def correct_name
     @name
   end
 
