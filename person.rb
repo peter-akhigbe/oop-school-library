@@ -1,8 +1,9 @@
 require './namable'
+require './rental'
 require 'securerandom'
 
 class Person < Namable
-  attr_accessor :name, :age
+  attr_accessor :name, :age, :rentals, :parent_permission
   attr_reader :id
 
   def initialize(name: 'Unknown', age: nil, parent_permission: true)
@@ -11,6 +12,7 @@ class Person < Namable
     @name = name
     @age = age || 0
     @parent_permission = parent_permission
+    @rentals = []
   end
 
   def can_use_services?
@@ -19,6 +21,10 @@ class Person < Namable
 
   def correct_name
     @name
+  end
+
+  def add_rental(book, date)
+    Rental.new(date, book, self)
   end
 
   private
