@@ -3,8 +3,9 @@ require './rental'
 require 'securerandom'
 
 class Person < Namable
-  attr_accessor :name, :age
+  attr_accessor :name, :age, :rentals, :parent_permission
   attr_reader :id
+
 
   def initialize(name: 'Unknown', age: nil, parent_permission: true)
     super()
@@ -12,6 +13,7 @@ class Person < Namable
     @name = name
     @age = age || 0
     @parent_permission = parent_permission
+    @rentals = []
   end
 
   def can_use_services?
