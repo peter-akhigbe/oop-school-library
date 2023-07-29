@@ -1,22 +1,22 @@
-require './nameable'
-require './rental'
-require 'securerandom'
+require_relative './nameable'
 
 class Person < Nameable
-  attr_accessor :name, :age, :rentals, :parent_permission
-  attr_reader :id
+  attr_reader :id, :parent_permission, :rentals
+  attr_accessor :name, :age
 
-  def initialize(name: 'Unknown', age: nil, parent_permission: true)
+  def initialize(age, parent_permission, name = 'unknown')
     super()
-    @id = SecureRandom.uuid
+    @id = Random.rand(1..1000)
     @name = name
-    @age = age || 0
+    @age = age
     @parent_permission = parent_permission
     @rentals = []
   end
 
   def can_use_services?
-    of_age? || @parent_permission
+    return true if of_age?
+
+    false
   end
 
   def correct_name
@@ -30,30 +30,8 @@ class Person < Nameable
   private
 
   def of_age?
-    @age >= 18
-  end
-end
+    return true if @age >= 18
 
-class Decorator < Nameable
-  def initialize(nameable)
-    super()
-    @nameable = nameable
-  end
-
-  def correct_name
-    @nameable.correct_name
-  end
-end
-
-class CapitalizeDecorator < Decorator
-  def correct_name
-    @nameable.correct_name.capitalize
-  end
-end
-
-class TrimmerDecorator < Decorator
-  def correct_name
-    name = @nameable.correct_name
-    name.length > 10 ? name[0..9] : name
+    false
   end
 end
