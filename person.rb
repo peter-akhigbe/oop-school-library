@@ -1,8 +1,8 @@
-require './namable'
+require './nameable'
 require './rental'
 require 'securerandom'
 
-class Person < Namable
+class Person < Nameable
   attr_accessor :name, :age, :rentals, :parent_permission
   attr_reader :id
 
